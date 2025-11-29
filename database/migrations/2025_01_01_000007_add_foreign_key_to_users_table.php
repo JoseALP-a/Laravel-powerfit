@@ -8,20 +8,26 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            if (Schema::hasTable('rutinas')) {
-                $table->foreign('rutina_id')
-                    ->references('id')
-                    ->on('rutinas')
-                    ->nullOnDelete();
-            }
-        });
+        if (Schema::hasTable('users') && Schema::hasTable('rutinas')) {
+            Schema::table('users', function (Blueprint $table) {
+                $foreignKeys = collect($table->getConnection()->getDoctrineSchemaManager()->listTableForeignKeys($table->getTable()));
+                $exists = $foreignKeys->contains(fn($fk) => $fk->getLocalColumns() === ['rutina_id']);
+                if (!$exists) {
+                    $table->foreign('rutina_id')
+                        ->references('id')
+                        ->on('rutinas')
+                        ->nullOnDelete();
+                }
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['rutina_id']);
-        });
+        if (Schema::hasTable('users')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropForeign(['rutina_id']);
+            });
+        }
     }
 };

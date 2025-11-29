@@ -8,13 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('dias_rutina', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('rutina_id')->constrained('rutinas')->onDelete('cascade');
-            $table->integer('dia_numero'); // Ej: Día 1, Día 2...
-            $table->string('grupo_muscular', 100);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('dias_rutina')) {
+            Schema::create('dias_rutina', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('rutina_id')->constrained('rutinas')->onDelete('cascade');
+                $table->integer('dia_numero'); // Ej: Día 1, Día 2...
+                $table->string('grupo_muscular', 100);
+                $table->timestamps();
+            });
+        }
     }
 
     public function down(): void

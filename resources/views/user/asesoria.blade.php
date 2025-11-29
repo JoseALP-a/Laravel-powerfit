@@ -1,56 +1,62 @@
-<title>PowerFit - Asesoría</title>
 @extends('layouts.main')
 
 @section('content')
-<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-6 border border-orange-100 relative z-10">
+<div style="display:flex; justify-content:center; padding-top:40px;">
 
-    {{-- Encabezado --}}
-    <div class="flex items-center gap-2 mb-6 border-b border-orange-200 pb-3">
-        <i data-lucide="message-circle" class="w-6 h-6 text-orange-500"></i>
-        <h2 class="text-2xl font-bold text-gray-800">Asesoría Virtual</h2>
-    </div>
+    <div style="
+        background: rgba(0,0,0,0.7);
+        border-radius:20px;
+        padding:25px;
+        width:100%;
+        max-width:600px;
+        color:white;
+        box-shadow:0 8px 30px rgba(0,0,0,0.6);
+        backdrop-filter: blur(6px);
+        border:1px solid rgba(255,255,255,0.1);
+    ">
+        {{-- Encabezado --}}
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.2); padding-bottom:8px;">
+            <span style="font-size:1.4rem; color:#ff6600;">💬</span>
+            <h2 style="font-size:1.5rem; font-weight:700; color:white; margin:0;">Asesoría Virtual</h2>
+        </div>
 
-    {{-- Introducción principal --}}
-    <div class="bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded-lg p-5 shadow-sm mb-5">
-        <p class="text-base leading-relaxed">
-            En este espacio podrás recibir <span class="font-semibold">asesoría personalizada</span> sobre tu rutina, tus progresos o cualquier duda relacionada con PowerFit.  
-            Nuestro equipo está disponible para orientarte y ayudarte a alcanzar tus objetivos de forma <span class="font-semibold">efectiva y segura</span>.
-        </p>
-    </div>
+        {{-- Introducción --}}
+        <div style="background: linear-gradient(90deg, #ff7a00, #ff5100); color:white; border-radius:12px; padding:15px; margin-bottom:15px;">
+            <p style="margin:0; font-size:0.95rem; line-height:1.5;">
+                En este espacio podrás recibir <strong>asesoría personalizada</strong> sobre tu rutina, tus progresos o cualquier duda relacionada con PowerFit.
+                Nuestro equipo está disponible para orientarte y ayudarte a alcanzar tus objetivos de forma <strong>efectiva y segura</strong>.
+            </p>
+        </div>
 
-    {{-- Mensaje dinámico --}}
-    <p class="text-gray-700 leading-relaxed mb-6">{{ $mensaje }}</p>
+        {{-- Mensaje dinámico --}}
+        <p style="margin-bottom:15px; color:#d1d5db; font-size:0.95rem;">{{ $mensaje }}</p>
 
-    {{-- Estado --}}
-    <div class="flex items-center gap-2 mb-6">
+        {{-- Estado --}}
+        <div style="margin-bottom:15px;">
+            @if($activo)
+                <span style="display:inline-flex; align-items:center; gap:5px; color:#22c55e; font-weight:600;">
+                    ✅ Asesoría activa
+                </span>
+            @else
+                <span style="display:inline-flex; align-items:center; gap:5px; color:#f87171; font-weight:600;">
+                    ❌ Asesoría inactiva
+                </span>
+            @endif
+        </div>
+
+        {{-- Botón --}}
         @if($activo)
-            <span class="flex items-center gap-1 text-green-600 font-medium">
-                <i data-lucide="check-circle" class="w-5 h-5"></i> Asesoría activa
-            </span>
+            <a href="{{ $whatsapp }}" target="_blank"
+               style="display:inline-flex; align-items:center; gap:8px; background: linear-gradient(90deg,#ff7a00,#ff5100); color:white; font-weight:600; padding:10px 16px; border-radius:10px; text-decoration:none; transition:all 0.3s; font-size:0.95rem;"
+               onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 15px rgba(255,123,0,0.6)';"
+               onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+                📞 Contactar vía WhatsApp
+            </a>
         @else
-            <span class="flex items-center gap-1 text-red-600 font-medium">
-                <i data-lucide="x-circle" class="w-5 h-5"></i> Asesoría inactiva
-            </span>
+            <button disabled style="display:inline-flex; align-items:center; gap:8px; background:#9ca3af; color:#6b7280; font-weight:600; padding:10px 16px; border-radius:10px; cursor:not-allowed; font-size:0.95rem;">
+                ⛔ No disponible
+            </button>
         @endif
     </div>
-
-    {{-- Botón --}}
-    @if($activo)
-        <a href="{{ $whatsapp }}" target="_blank"
-            class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-6 py-2.5 rounded-lg shadow-md transition">
-            <i data-lucide="phone" class="w-4 h-4"></i> Contactar vía WhatsApp
-        </a>
-    @else
-        <button disabled
-            class="inline-flex items-center gap-2 bg-gray-300 text-gray-600 font-semibold px-6 py-2.5 rounded-lg cursor-not-allowed">
-            <i data-lucide="slash" class="w-4 h-4"></i> No disponible
-        </button>
-    @endif
 </div>
-
-{{-- Lucide --}}
-<script src="https://unpkg.com/lucide@latest"></script>
-<script>
-    lucide.createIcons();
-</script>
 @endsection

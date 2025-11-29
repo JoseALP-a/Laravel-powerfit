@@ -1,35 +1,48 @@
-<title>PowerFit - Videos</title>
 @extends('layouts.main')
 
 @section('content')
-<div class="max-w-5xl mx-auto bg-black/60 text-white shadow-lg rounded-2xl p-8 mt-10 backdrop-blur-md border border-white/10">
-    <h2 class="text-3xl font-bold mb-4 text-orange-400">🎥 Videos de Ejercicios</h2>
-    <p class="text-gray-200 mb-6">
-        Aquí podrás ver los videos de los ejercicios asignados en tu rutina, para que puedas ejecutarlos correctamente.
-    </p>
+<div style="display:flex; justify-content:center; padding-top:40px;">
 
-    @if ($ejercicios->isEmpty())
-        <div class="bg-yellow-500/20 border border-yellow-500 text-yellow-300 px-4 py-3 rounded">
-            ⚠️ Aún no hay videos disponibles para los ejercicios de tu rutina.
-        </div>
-    @else
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            @foreach ($ejercicios as $ejercicio)
-                <div class="border border-white/10 rounded-xl p-4 shadow-sm bg-white/10 hover:bg-white/15 transition">
-                    <h3 class="text-lg font-semibold mb-2 text-orange-300">{{ $ejercicio->nombre }}</h3>
-                    <p class="text-sm text-gray-300 mb-3">{{ $ejercicio->descripcion }}</p>
+    <div style="
+        background: rgba(0,0,0,0.7);
+        border-radius:20px;
+        padding:25px;
+        width:100%;
+        max-width:800px;
+        color:white;
+        box-shadow:0 8px 30px rgba(0,0,0,0.6);
+        backdrop-filter: blur(6px);
+        border:1px solid rgba(255,255,255,0.1);
+    ">
+        <h2 style="font-size:2rem; font-weight:700; color:#ff6600; margin-bottom:10px;">🎥 Videos de Ejercicios</h2>
+        <p style="color:#e5e7eb; margin-bottom:20px;">
+            Aquí podrás ver los videos de los ejercicios asignados en tu rutina, para que puedas ejecutarlos correctamente.
+        </p>
 
-                    @if ($ejercicio->video_url)
-                        <video controls class="w-full rounded-lg border border-white/10">
-                            <source src="{{ asset($ejercicio->video_url) }}" type="video/mp4">
-                            Tu navegador no soporta la reproducción de video.
-                        </video>
-                    @else
-                        <p class="text-red-400 italic text-sm">❌ No hay video disponible.</p>
-                    @endif
-                </div>
-            @endforeach
-        </div>
-    @endif
+        @if ($ejercicios->isEmpty())
+            <div style="background: rgba(255,193,7,0.2); color:#fbbf24; padding:10px; border-radius:10px; border:1px solid rgba(255,193,7,0.4); margin-bottom:10px;">
+                ⚠️ Aún no hay videos disponibles para los ejercicios de tu rutina.
+            </div>
+        @else
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                @foreach ($ejercicios as $ejercicio)
+                    <div style="padding:12px; border-radius:12px; background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); transition: background 0.3s;"
+                         onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                        <h3 style="font-size:1.1rem; font-weight:600; color:#ffa500; margin-bottom:6px;">{{ $ejercicio->nombre }}</h3>
+                        <p style="color:#d1d5db; font-size:0.9rem; margin-bottom:8px;">{{ $ejercicio->descripcion }}</p>
+
+                        @if ($ejercicio->video_url)
+                            <video controls style="width:100%; border-radius:10px; border:1px solid rgba(255,255,255,0.1);">
+                                <source src="{{ asset($ejercicio->video_url) }}" type="video/mp4">
+                                Tu navegador no soporta la reproducción de video.
+                            </video>
+                        @else
+                            <p style="color:#f87171; font-size:0.85rem; font-style:italic;"> No hay video disponible.</p>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </div>
 </div>
 @endsection

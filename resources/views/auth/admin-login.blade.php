@@ -10,7 +10,6 @@
             background-image: url("{{ asset('Imagenes/PowerFitHome.jpg') }}");
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             font-family: 'Poppins', sans-serif;
             height: 100vh;
             display: flex;
@@ -19,9 +18,9 @@
         }
 
         .login-container {
-            background-color: rgba(255, 255, 255, 0.97);
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 2.5rem;
-            border-radius: 20px;
+            border-radius: 2xl;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             width: 100%;
             max-width: 400px;
@@ -45,11 +44,6 @@
             vertical-align: middle;
         }
 
-        .login-container p {
-            color: #444;
-            margin-bottom: 1.5rem;
-        }
-
         .btn-orange {
             background: linear-gradient(90deg, #ff7a00, #ff5100);
             color: white;
@@ -68,23 +62,22 @@
             box-shadow: 0 0 10px rgba(255, 102, 0, 0.6);
         }
 
-        /* ✅ Botón Volver al Home más limpio */
         .back-home {
-    display: inline-block;
-    padding: 0.6rem 1.4rem;
-    background: transparent;
-    color: #444;
-    font-weight: 600;
-    border: none;
-    border-radius: 10px;
-    text-decoration: none;
-    margin-top: 1rem;
-    transition: color 0.3s ease;
-}
+            display: inline-block;
+            padding: 0.6rem 1.4rem;
+            background: transparent;
+            color: #444;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: color 0.3s ease;
+        }
 
-.back-home:hover {
-    color: #ff3300;
-}
+        .back-home:hover {
+            color: #ff3300;
+        }
     </style>
 </head>
 <body>
@@ -100,7 +93,6 @@
 
         <form method="POST" action="{{ route('admin.login.submit') }}">
             @csrf
-
             <div class="mt-4 text-left">
                 <x-label for="email" value="Correo del Administrador" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />

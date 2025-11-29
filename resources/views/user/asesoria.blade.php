@@ -2,7 +2,7 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="max-w-3xl mx-auto bg-white shadow-md rounded-2xl p-6 border border-orange-100">
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-6 border border-orange-100 relative z-10">
 
     {{-- Encabezado --}}
     <div class="flex items-center gap-2 mb-6 border-b border-orange-200 pb-3">
@@ -18,12 +18,10 @@
         </p>
     </div>
 
-    {{-- Descripción dinámica desde la base de datos --}}
-    <p class="text-gray-700 leading-relaxed mb-6">
-        {{ $mensaje }}
-    </p>
+    {{-- Mensaje dinámico --}}
+    <p class="text-gray-700 leading-relaxed mb-6">{{ $mensaje }}</p>
 
-    {{-- Estado de la asesoría --}}
+    {{-- Estado --}}
     <div class="flex items-center gap-2 mb-6">
         @if($activo)
             <span class="flex items-center gap-1 text-green-600 font-medium">
@@ -36,7 +34,7 @@
         @endif
     </div>
 
-    {{-- Botón de contacto --}}
+    {{-- Botón --}}
     @if($activo)
         <a href="{{ $whatsapp }}" target="_blank"
             class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-6 py-2.5 rounded-lg shadow-md transition">
@@ -48,13 +46,11 @@
             <i data-lucide="slash" class="w-4 h-4"></i> No disponible
         </button>
     @endif
-
 </div>
 
-{{-- Íconos Lucide --}}
+{{-- Lucide --}}
 <script src="https://unpkg.com/lucide@latest"></script>
 <script>
     lucide.createIcons();
 </script>
 @endsection
-

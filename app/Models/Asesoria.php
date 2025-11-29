@@ -16,4 +16,9 @@ class Asesoria extends Model
         'mensaje_default',
         'activo',
     ];
+
+    // ⭐ Valor por defecto para mensaje_default
+    protected $attributes = [
+        'mensaje_default' => 'Hola, necesito asesoría sobre mi rutina PowerFit.',
+    ];
 }

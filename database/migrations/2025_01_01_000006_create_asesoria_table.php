@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('asesoria', function (Blueprint $table) {
             $table->id();
             $table->string('numero_whatsapp', 20);
-            $table->text('mensaje_default')->default('Hola, necesito asesoría sobre mi rutina PowerFit.');
+            $table->text('mensaje_default')->nullable(); // ❗ FIX
             $table->boolean('activo')->default(true);
             $table->timestamps();
         });

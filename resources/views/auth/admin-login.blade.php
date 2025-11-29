@@ -4,56 +4,82 @@
     <meta charset="UTF-8">
     <title>Login Administrador | PowerFit</title>
     <link rel="icon" type="image/png" href="{{ asset('Imagenes/PowerFitIcon.png') }}">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
+        /* Fondo y body */
         body {
             background-image: url("{{ asset('Imagenes/PowerFitHome.jpg') }}");
             background-size: cover;
             background-position: center;
             font-family: 'Poppins', sans-serif;
+            margin: 0;
             height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            color: #333;
         }
 
+        /* Contenedor principal */
         .login-container {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 2.5rem;
-            border-radius: 2xl;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 400px;
+            padding: 40px;
+            width: 400px;
             text-align: center;
+            position: relative;
         }
 
-        .login-container img {
+        /* Logo y título */
+        .logo-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .logo-title img {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 10px;
         }
 
-        .login-container h1 {
-            font-size: 1.8rem;
+        .logo-title h1 {
+            color: #ff7b00;
             font-weight: 700;
-            color: #ff6600;
-            display: inline-block;
-            vertical-align: middle;
+            font-size: 1.8rem;
+            margin: 0;
         }
 
+        /* Texto descriptivo */
+        p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Inputs */
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 2px solid #ff7b00;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        /* Botón */
         .btn-orange {
             background: linear-gradient(90deg, #ff7a00, #ff5100);
             color: white;
             font-weight: 600;
             border: none;
-            border-radius: 10px;
-            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            padding: 10px 20px;
             cursor: pointer;
             width: 100%;
-            text-align: center;
+            margin-top: 15px;
             transition: all 0.3s ease;
         }
 
@@ -62,6 +88,7 @@
             box-shadow: 0 0 10px rgba(255, 102, 0, 0.6);
         }
 
+        /* Enlace al home */
         .back-home {
             display: inline-block;
             padding: 0.6rem 1.4rem;
@@ -71,41 +98,53 @@
             border: none;
             border-radius: 10px;
             text-decoration: none;
-            margin-top: 1rem;
+            margin-top: 15px;
             transition: color 0.3s ease;
         }
 
         .back-home:hover {
             color: #ff3300;
         }
+
+        /* Errores de validación */
+        .error-message {
+            background: rgba(255, 102, 0, 0.1);
+            color: #d9534f;
+            border: 1px solid #ff7b00;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 0.9rem;
+            margin-top: 4px;
+            text-align: left;
+        }
+
     </style>
 </head>
 <body>
     <div class="login-container">
-        <div class="mb-4">
-            <img src="{{ asset('Imagenes/PowerFitIcon.png') }}" alt="PowerFit Icon">
+        <div class="logo-title">
+            <img src="{{ asset('Imagenes/PowerFitIcon.png') }}" alt="PowerFit Logo">
             <h1>PowerFit Admin</h1>
         </div>
 
         <p>Accede a tu panel de administración</p>
 
-        <x-validation-errors class="mb-4" />
+        {{-- Mostrar errores generales --}}
+        @if ($errors->any())
+            <div class="error-message">
+                <ul style="margin: 0; padding-left: 16px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <form method="POST" action="{{ route('admin.login.submit') }}">
             @csrf
-            <div class="mt-4 text-left">
-                <x-label for="email" value="Correo del Administrador" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
-
-            <div class="mt-4 text-left">
-                <x-label for="password" value="Contraseña" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
-            </div>
-
-            <div class="mt-6">
-                <button type="submit" class="btn-orange">Iniciar sesión</button>
-            </div>
+            <input type="email" name="email" placeholder="Correo del Administrador" value="{{ old('email') }}" required autofocus>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit" class="btn-orange">Iniciar sesión</button>
         </form>
 
         <a href="{{ url('/') }}" class="back-home">← Volver al Home</a>

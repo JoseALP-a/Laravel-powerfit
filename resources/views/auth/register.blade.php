@@ -12,7 +12,7 @@
             background-position: center;
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,10 +23,12 @@
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             box-shadow: 0 0 15px rgba(255, 123, 0, 0.5);
-            padding: 40px;
-            width: 420px;
+            padding: 30px 25px;
+            width: 90%;
+            max-width: 420px;
             text-align: center;
             position: relative;
+            box-sizing: border-box;
         }
 
         .logo-title {
@@ -34,12 +36,12 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .logo-title img {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: 2px solid #ff7b00;
             padding: 5px;
@@ -48,13 +50,14 @@
         .logo-title h2 {
             color: #ff7b00;
             font-weight: 700;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin: 0;
         }
 
         p {
             color: #555;
             margin-bottom: 20px;
+            font-size: 0.95rem;
         }
 
         input {
@@ -64,6 +67,7 @@
             border: 2px solid #ff7b00;
             border-radius: 8px;
             font-size: 14px;
+            box-sizing: border-box;
         }
 
         button {
@@ -100,14 +104,14 @@
 
         .home-button {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 10px;
+            right: 10px;
             background: white;
             border: 2px solid #ff7b00;
             color: #ff7b00;
             font-weight: 600;
             border-radius: 8px;
-            padding: 5px 12px;
+            padding: 5px 10px;
             font-size: 0.9rem;
             text-decoration: none;
             transition: 0.3s;
@@ -118,7 +122,6 @@
             color: white;
         }
 
-        /* 🔸 Estilo para los mensajes de error */
         .error-message {
             background: rgba(255, 102, 0, 0.1);
             color: #d9534f;
@@ -139,6 +142,43 @@
             border-radius: 8px;
             text-align: left;
         }
+
+        /* 🔹 Responsive para móviles */
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 25px 15px;
+                width: 95%;
+            }
+
+            .logo-title img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-title h2 {
+                font-size: 1.4rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+
+            .home-button {
+                padding: 4px 8px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            input, button {
+                font-size: 13px;
+                padding: 8px;
+            }
+
+            .link {
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -152,7 +192,6 @@
 
         <p>Crea tu cuenta y comienza tu transformación</p>
 
-        {{-- 🔹 Mostrar mensajes de error generales --}}
         @if ($errors->any())
             <div class="alert">
                 <strong>⚠️ Ocurrieron algunos errores:</strong>
@@ -164,7 +203,6 @@
             </div>
         @endif
 
-        {{-- 🔹 Mostrar mensajes de estado (por ejemplo, registro exitoso) --}}
         @if (session('status'))
             <div class="alert" style="background: rgba(46, 204, 113, 0.15); border-left-color: #2ecc71; color: #2ecc71;">
                 {{ session('status') }}

@@ -10,12 +10,10 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        Admin::updateOrCreate(
-            ['email' => 'admin@powerfit.com'], // 👈 correo del admin inicial
-            [
-                'nombre' => 'Administrador PowerFit',
-                'password' => Hash::make('admin12345'), // 👈 contraseña
-            ]
-        );
+        Admin::create([
+            'nombre' => 'Administrador PowerFit',
+            'email' => 'admin@powerfit.com',
+            'password' => Hash::make('admin12345'), // CONTRASEÑA SEGURA
+        ]);
     }
 }

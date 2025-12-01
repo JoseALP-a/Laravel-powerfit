@@ -7,11 +7,10 @@ use Illuminate\Support\Facades\Route;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
-        commands: __DIR__.'/../routes/console.php',
+        web: __DIR__ . '/../routes/web.php',
+        api: __DIR__ . '/../routes/api.php',
+        commands: __DIR__ . '/../routes/console.php',
         health: '/up',
-        // ✅ Se agregan las rutas admin de forma limpia
         then: function () {
             Route::prefix('admin')
                 ->middleware('admin')
@@ -19,7 +18,13 @@ return Application::configure(basePath: dirname(__DIR__))
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // ✅ Grupo de middleware específico del panel admin
+
+        // 🔥 FIX PARA HTTPS EN RAILWAY
+        // Laravel ahora confía en los proxies y detecta correctamente HTTPS
+        $middleware->trustProxies(at: '*');
+
+
+        // ✅ Middleware del panel admin
         $middleware->group('admin', [
             \App\Http\Middleware\AdminSessionMiddleware::class,
             \Illuminate\Session\Middleware\StartSession::class,
